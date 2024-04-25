@@ -103,7 +103,7 @@ def process_summary(file_data_id: int, db: Session = Depends(get_db)):
 
     # Вызываем функцию summary, передавая путь файла
     summary_text = summary(file_path)
-    if summary_text.get("status_code") == 401:
+    if isinstance(summary_text, dict) and summary_text.get("status_code") == 401:
         raise HTTPException(status_code=401, detail="Blacklisted chunk: " + str(summary_text.get("Blacklisted chunk")))
 
     # Обновляем запись в базе данных с результатом summary
@@ -127,7 +127,7 @@ def process_qa(file_data_id: int, db: Session = Depends(get_db)):
     # Вызываем функцию qa, передавая путь файла
     qa_text = qa(file_path)
     qa_text_corrected = utility_part.correct_qa_format(qa_text)
-    if qa_text.get("status_code") == 401:
+    if isinstance(qa_text, dict) and qa_text.get("status_code") == 401:
         raise HTTPException(status_code=401, detail="Blacklisted chunk: " + str(qa_text.get("Blacklisted chunk")))
     # qa_text_corrected = "Empty"
 
