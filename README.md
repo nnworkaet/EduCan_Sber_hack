@@ -6,7 +6,6 @@
 - SaaS (Frontend + Backend +Postbackend)
 
 # Установка API 
-----------------------
 Минимальные требования от сервера для онлайн модели:
 - CPU 2 ядра
 - GPU 2 гб
@@ -23,8 +22,14 @@
   pip install -r requirements.txt
 ```
 ```python
-uvicorn back2front:app --reload --host server --port 8080
+uvicorn main:app --reload --host server --port 8080
 ```
+4. Переходим на http://127.0.0.1:8080/docs 
+Тут у нас лежат эндпоинты к основным функциям. 
+5. Соответсвенно загружаем любой файл формата .docx в эндпоинт upload_file и получаем id нашего файла.
+6. Теперь используем это id для process_summary и process-qa, чтобы получить результат используем get_file с нашим id.
+
+Примеры лекций, текстов и статей находятся в папке tests.
 
 # Установка Frontend + Backend частей для SaaS
 
